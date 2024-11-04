@@ -1,0 +1,25 @@
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Zoologico implements Serializable {
+    private List<Object> animales = new ArrayList<>();
+
+    public void agregarAnimal(Object animal) {
+        animales.add(animal);
+    }
+
+    public void mostrarSonidos() {
+        for (Object animal : animales) {
+            if (animal instanceof Perro) {
+                System.out.println(((Perro) animal).hacerSonido());
+            } else if (animal instanceof Gato) {
+                System.out.println(((Gato) animal).hacerSonido());
+            }
+        }
+    }
+
+    public List<Object> getAnimales() {
+        return animales;
+    }
+}
