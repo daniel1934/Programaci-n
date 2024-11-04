@@ -1,0 +1,40 @@
+
+public class Main {
+    public static void main(String[] args) {
+        // Crear instancias de Perro y Gato
+        Perro perro = new Perro("Firulais", 3);
+        Gato gato = new Gato("Miau", 2);
+
+        // Crear un zoológico y agregar animales
+        Zoologico zoologico = new Zoologico();
+        zoologico.agregarAnimal(perro);
+        zoologico.agregarAnimal(gato);
+
+        // Guardar el zoológico en un archivo
+        guardarZoologico(zoologico);
+
+        // Cargar el zoológico desde el archivo
+        Zoologico zoologicoCargado = cargarZoologico();
+        if (zoologicoCargado != null) {
+            zoologicoCargado.mostrarSonidos();
+        }
+    }
+
+    public static void guardarZoologico(Zoologico zoologico) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("zoologico.dat"))) {
+            out.writeObject(zoologico);
+            System.out.println("Zoológico guardado en archivo.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Zoologico cargarZoologico() {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("zoologico.dat"))) {
+            return (Zoologico) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
